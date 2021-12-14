@@ -1,4 +1,3 @@
-const functions = require(‘firebase-functions’);
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -10,8 +9,28 @@ app.post('/test', (req, res)=>{
 	} , parseInt(req.query.wait) || 2000);
 });
 
+
+
+umap = {
+	'https://app.dev.bicycle.io/traces?from=1639372476000&mode=traces&quantile=0.95&query=fields.Country%20in%20%5B%22Brazil%22%5D&to=1639459776000' : 'resp1.json',
+}
+
+app.post('/query', (req, res) => {
+	let url = req.query.url;
+	if(url){
+		if(umap[url]){
+			res.json(require('./responses/' + umap[url]));
+		} else {
+			res.status(416).json({'error' : 'not found'});
+		}
+	} else {
+		res.status(400).json({'error' : 'No URL provided'});
+	}
+})
+
+
 server.listen(3005, ()=>{
 	console.log("ASDF");
 })
 
-exports.app = functions.https.onRequest(app);
+// exports.app = functions.https.onRequest(app);
