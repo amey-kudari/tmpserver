@@ -28,6 +28,11 @@ app.post('/query', (req, res) => {
 	}
 })
 
+app.post('/auth-get-user', (req, res) => { // 
+	res.json({
+		'id' : '123@bicycle.io',
+	});
+})
 
 server.listen(8001, '0.0.0.0' , ()=>{
 	console.log("ASDF");
