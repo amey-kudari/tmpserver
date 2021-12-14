@@ -16,10 +16,13 @@ umap = {
 }
 
 app.post('/query', (req, res) => {
-	let url = req.query.url;
+	console.log(req)
+	let url = req.query.url || 'https://app.dev.bicycle.io/traces?from=1639372476000&mode=traces&quantile=0.95&query=fields.Country%20in%20%5B%22Brazil%22%5D&to=1639459776000';
 	if(url){
 		if(umap[url]){
-			res.json(require('./responses/' + umap[url]));
+			setTimeout(()=>{
+				res.json(require('./responses/' + umap[url]));
+			}, parseInt(req.query.wait) || 2000)
 		} else {
 			res.status(416).json({'error' : 'not found'});
 		}
