@@ -37,8 +37,21 @@ app.post('/auth-get-user', (req, res) => { //
 	});
 })
 
+let alert_post_iter = 1
+app.post('/widget-alert', (req, res) => {
+	alert_post_iter = (alert_post_iter + 1)%5 + 1;
+	if(alert_post_iter == 1){
+		res.json(require('./responses/alrt1.json'));
+	} else {
+		res.json([]);
+	}
+})
+
 server.listen(8001, '0.0.0.0' , ()=>{
 	console.log("ASDF");
 })
+
+
+
 
 // exports.app = functions.https.onRequest(app);
