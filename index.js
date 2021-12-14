@@ -29,7 +29,7 @@ app.post('/query', (req, res) => {
 })
 
 
-server.listen(3005, ()=>{
+server.listen(8001, '0.0.0.0' , ()=>{
 	console.log("ASDF");
 })
 
